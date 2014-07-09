@@ -1,0 +1,18 @@
+[Unit]
+Description=Ceph Monitor
+After=docker.service
+
+[Service]
+TimeoutSec=0
+Environment=MONIP=${COREOS_PUBLIC_IPV4}
+Environment=MONHOST=%H
+ExecStartPre=/bin/mkdir -p /etc/ceph /var/lib/ceph
+ExecStartPre=/usr/bin/docker pull ulexus/ceph-mon
+ExecStart=/usr/bin -c '/usr/bin/docker start -a ceph-mon || /usr/bin/docker run -a --net=host --name ceph-mon -p 6789:6789  -v /var/lib/ceph:/var/lib/ceph -v /etc/ceph:/etc/ceph ulexus/ceph-mon ${MONHOST} ${MONIP}'
+ExecStartPost=/usr/bin/etcdctl set /ceph/mon/%H ${COREOS_PUBLIC_IPV4}
+ExecStop=/usr/bin/docker stop ceph-mon
+ExecStopPost=/usr/bin/etcdctl rm /ceph/mon/%H
+
+[X-Fleet]
+X-Conflicts=ceph-mon
+
