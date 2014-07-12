@@ -1,32 +1,28 @@
 ceph-mon
 ========
 
-This Dockerfile is for use in bootstrapping an initial Ceph MON for use with Docker [ http://docker.io/ ].
-
-Install Docker
---------------
-```
-Using Ubuntu 13.04 (64 bit)
-```
-
-```
-# Enable AUFS filesystem support
-sudo apt-get update
-sudo apt-get install linux-image-extra-`uname -r`
-```
-
-```
-# Install Docker
-sudo sh -c "curl http://get.docker.io/gpg | apt-key add -"
-sudo sh -c "echo deb https://get.docker.io/ubuntu docker main > /etc/apt/sources.list.d/docker.list"
-sudo apt-get update
-sudo apt-get install lxc-docker
-```
+This Dockerfile may be used to bootstrap a Ceph cluster or add a mon to an existing cluster.
 
 
-Build Ceph MON Container
-------------------------
-```
-# Build Container
-sudo docker build github.com/ceph-docker/ceph-mon
-```
+Usage
+-----
+
+The environment variables `MON_NAME` and `MON_IP` are required:
+
+*  `MON_NAME` is the name of the monitor
+*  `MON_IP` is the IP address of the monitor (public)
+
+For example:
+`docker run -e MON_IP=192.168.101.50 -e MON_NAME=mymon ulexus/ceph-mon`
+
+If you have an existing Ceph cluster and are only looking to add a monitor, you will need at least four files in `/etc/ceph`:
+*  `ceph.conf` - The main ceph configuration file, which may be obtained from an existing ceph monitor
+*  `ceph.client.admin.keyring` - The administrator key of the cluster, which may be obtained from an existing ceph monitor by `ceph auth get client.admin -o /tmp/ceph.client.admin.keyring`
+*  `ceph.mon.keyring` - The monitor key, which may be obtained from an existinv ceph monitor by `ceph auth get mon. -o /tmp/ceph.mon.keyring`
+*  `monmap` - The present monitor map of the cluster, which may be obtained from an existing ceph monitor by `ceph mon getmap -o /tmp/monmap`
+
+Otherwise, if you are bootstrapping a new cluster, these will be generated for you.
+
+Commonly, you will want to bind-mount your host's `/etc/ceph` into the container.  For example:
+`docker run -e MON_IP=192.168.101.50 -e MON_NAME=mymon -v /etc/ceph:/etc/ceph ulexus/ceph-mon`
+

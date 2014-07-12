@@ -27,8 +27,8 @@ FROM ulexus/ceph-base
 MAINTAINER Seán C McCord "ulexus@gmail.com"
 
 # Add bootstrap script
-ADD bootstrap.sh /usr/local/bin/bootstrap.sh
-RUN chmod +x /usr/local/bin/bootstrap.sh
+ADD entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
 # Add volumes for ceph config and monitor data
 VOLUME ["/etc/ceph","/var/lib/ceph"]
@@ -37,5 +37,5 @@ VOLUME ["/etc/ceph","/var/lib/ceph"]
 EXPOSE 6789
 
 # Execute monitor as the entrypoint
-ENTRYPOINT ["/usr/local/bin/bootstrap.sh"]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
