@@ -2,11 +2,7 @@
 # 
 # Ceph base image
 #
-#  USAGE NOTES:
-#    - EITHER use a VOLUME (preferably from ceph-config) OR the ADD
-#    - IF using ADD: Copy your ceph.conf, keyrings, etc into the config/ directory before building
-#
-# VERSION 0.0.1
+# VERSION 0.0.2
 
 
 FROM stackbrew/ubuntu:trusty
