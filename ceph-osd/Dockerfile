@@ -3,7 +3,7 @@
 # Ceph OSD
 #
 #  USAGE NOTES:
-#    * OSD_ID (numeric identifier for this OSD)
+#    * OSD_ID (numeric identifier for this OSD, shoud be obtained from `ceph osd create`)
 #
 # VERSION 0.0.1
 
