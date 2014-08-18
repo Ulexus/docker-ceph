@@ -11,6 +11,8 @@ if [ ! -n "$OSD_ID" ]; then
    exit 1
 fi
 
+# Make sure osd directory exists
+mkdir -p /var/lib/ceph/osd/${CLUSTER}-${OSD_ID}
 
 # Check to see if our OSD has been initialized
 if [ ! -e /var/lib/ceph/osd/${CLUSTER}-${OSD_ID}/keyring ]; then

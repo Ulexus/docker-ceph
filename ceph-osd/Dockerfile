@@ -3,9 +3,9 @@
 # Ceph OSD
 #
 #  USAGE NOTES:
-#    * OSD_ID (numeric identifier for this OSD)
+#    * OSD_ID (numeric identifier for this OSD; obtain from `ceph osd create`)
 #
-# VERSION 0.0.1
+# VERSION 0.0.2
 
 FROM ulexus/ceph-base
 MAINTAINER Seán C McCord "ulexus@gmail.com"
