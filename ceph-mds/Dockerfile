@@ -26,7 +26,6 @@ RUN apt-get install -y ceph-mds
 
 # Add bootstrap script
 ADD entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
 
 # Add volumes for ceph config and monitor data
 VOLUME ["/etc/ceph","/var/lib/ceph"]
@@ -37,4 +36,3 @@ EXPOSE 6800
 # Execute monitor as the entrypoint
 WORKDIR /
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-
