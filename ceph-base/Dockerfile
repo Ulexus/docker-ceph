@@ -1,8 +1,8 @@
-# DOCKER-VERSION 1.0.0
+# DOCKER-VERSION 1.2.0
 # 
 # Ceph base image
 #
-# VERSION 0.0.2
+# VERSION 1.0.0
 
 
 FROM stackbrew/ubuntu:trusty
