@@ -22,6 +22,8 @@ following environment variables will control its creation:
 Note
 ----
 
+Re: [https://github.com/Ulexus/docker-ceph/issues/5]
+
 A user has reported a consterning (and difficult to diagnose) problem wherein the OSD crashes frequently due to Docker running out of sufficient open file handles.  This is understandable, as the OSDs use a great many ports during periods of high traffic.  It is, therefore, recommended that you increase the number of open file handles available to Docker.
 
 On CoreOS (and probably other systemd-based systems), you can do this by creating the a file named `/etc/systemd/system/docker.service.d/limits.conf` with content something like:
